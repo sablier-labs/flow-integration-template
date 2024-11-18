@@ -1,6 +1,6 @@
 # Flow Integration Template
 
-This repository contains templates for building integrations with Sablier Flow.
+This repository contains templates for building integrations with [Sablier Flow](https://github.com/sablier-labs/flow).
 
 - **FlowStreamCreator**: A template for creating Flow streams.
 
