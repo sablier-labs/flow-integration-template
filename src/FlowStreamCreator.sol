@@ -21,7 +21,7 @@ contract FlowStreamCreator {
             // full
             // list of permissions, check the Sablier docs
         address recipient = address(0xcafe); // The recipient of the streamed assets
-        UD21x18 ratePerSecond = UD21x18.wrap(11_574_074_074_074_073e16); // Equivalent to 100e18 DAI per day
+        UD21x18 ratePerSecond = UD21x18.wrap(1_157_407_407_407_407); // Equivalent to 100e18 DAI per day
         IERC20 token = DAI; // The streaming token
         bool transferable = true; // Whether the stream will be transferable or not
 
@@ -42,7 +42,7 @@ contract FlowStreamCreator {
         address sender = msg.sender; // The sender will be able to pause the stream or change rate per second. To see a
             // full list of permissions, check the Sablier docs
         address recipient = address(0xcafe); // The recipient of the streamed assets
-        UD21x18 ratePerSecond = UD21x18.wrap(11_574_074_074_074_073e16); // Equivalent to 100e18 DAI per day
+        UD21x18 ratePerSecond = UD21x18.wrap(1_157_407_407_407_407); // Equivalent to 100e18 DAI per day
         IERC20 token = DAI; // The streaming token
         bool transferable = true; // Whether the stream will be transferable or not
 
