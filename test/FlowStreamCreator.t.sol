@@ -7,20 +7,17 @@ import { ISablierFlow } from "@sablier/flow/src/interfaces/ISablierFlow.sol";
 import { FlowStreamCreator } from "../src/FlowStreamCreator.sol";
 
 contract FlowStreamCreatorTest is Test {
-    // Get the latest deployment address from the docs: https://docs.sablier.com/guides/flow/deployments
-    address internal constant FLOW_ADDRESS = address(0x83Dd52FCA44E069020b58155b761A590F12B59d3);
-
     // Test contracts
     FlowStreamCreator internal creator;
     ISablierFlow internal flow;
     address internal user;
 
     function setUp() public {
-        // Fork Ethereum Mainnet
-        vm.createSelectFork({ blockNumber: 6_964_132, urlOrAlias: "sepolia" });
+        // Fork Ethereum Testnet at a block after the to the deployment
+        vm.createSelectFork({ blockNumber: 7_250_564, urlOrAlias: "sepolia" });
 
-        // Load the flow contract from Ethereum sepolia
-        flow = ISablierFlow(FLOW_ADDRESS);
+        // Get the latest deployment address from the docs: https://docs.sablier.com/guides/flow/deployments
+        flow = ISablierFlow(0x5Ae8c13f6Ae094887322012425b34b0919097d8A);
 
         // Deploy the stream creator contract
         creator = new FlowStreamCreator(flow);
