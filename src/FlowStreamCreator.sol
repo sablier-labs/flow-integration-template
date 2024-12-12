@@ -17,16 +17,14 @@ contract FlowStreamCreator {
 
     /// @notice Creates a new Sablier flow stream without upfront deposit.
     function createFlowStream() external returns (uint256 streamId) {
-        address sender = msg.sender; // The sender will be able to pause the stream or change rate per second. To see a
-            // full
-            // list of permissions, check the Sablier docs
-        address recipient = address(0xcafe); // The recipient of the streamed assets
-        UD21x18 ratePerSecond = UD21x18.wrap(1_157_407_407_407_407); // Equivalent to 100e18 DAI per day
-        IERC20 token = DAI; // The streaming token
-        bool transferable = true; // Whether the stream will be transferable or not
-
         // Create the flow stream using the `create` function.
-        streamId = FLOW.create(sender, recipient, ratePerSecond, token, transferable);
+        streamId = FLOW.create({
+            sender: msg.sender, // The sender will be able to pause the stream or change rate per second
+            recipient: address(0xCAFE), // The recipient of the streamed tokens
+            ratePerSecond: UD21x18.wrap(1_157_407_407_407_407), // Equivalent to 100e18 DAI per day
+            token: DAI, // The streaming token
+            transferable: true // Whether the stream will be transferable or not
+         });
     }
 
     /// @notice Creates a new Sablier flow stream with some upfront deposit.
@@ -39,14 +37,14 @@ contract FlowStreamCreator {
         // Approve the Flow contract to spend DAI
         DAI.approve(address(FLOW), depositAmount);
 
-        address sender = msg.sender; // The sender will be able to pause the stream or change rate per second. To see a
-            // full list of permissions, check the Sablier docs
-        address recipient = address(0xcafe); // The recipient of the streamed assets
-        UD21x18 ratePerSecond = UD21x18.wrap(1_157_407_407_407_407); // Equivalent to 100e18 DAI per day
-        IERC20 token = DAI; // The streaming token
-        bool transferable = true; // Whether the stream will be transferable or not
-
         // Create the flow stream using the `createAndDeposit` function which would also deposit tokens into the stream.
-        streamId = FLOW.createAndDeposit(sender, recipient, ratePerSecond, token, transferable, depositAmount);
+        streamId = FLOW.createAndDeposit({
+            sender: msg.sender, // The sender will be able to pause the stream or change rate per second
+            recipient: address(0xCAFE), // The recipient of the streamed tokens
+            ratePerSecond: UD21x18.wrap(1_157_407_407_407_407), // Equivalent to 100e18 DAI per day
+            token: DAI, // The streaming token
+            transferable: true, // Whether the stream will be transferable or not
+            amount: depositAmount
+        });
     }
 }
