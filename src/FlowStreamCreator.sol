@@ -8,12 +8,8 @@ import { ISablierFlow } from "@sablier/flow/src/interfaces/ISablierFlow.sol";
 /// @title FlowStreamCreator
 /// @dev This contract allows users to create Sablier flow streams.
 contract FlowStreamCreator {
-    IERC20 public constant DAI = IERC20(0x68194a729C2450ad26072b3D33ADaCbcef39D574);
-    ISablierFlow public immutable FLOW;
-
-    constructor(ISablierFlow flow) {
-        FLOW = flow;
-    }
+    IERC20 public constant DAI = IERC20(0x6B175474E89094C44Da98b954EedeAC495271d0F);
+    ISablierFlow public constant FLOW = ISablierFlow(0x7a86d3e6894f9c5B5f25FFBDAaE658CFc7569623);
 
     /// @notice Creates a new Sablier flow stream without upfront deposit.
     function createFlowStream() external returns (uint256 streamId) {
@@ -22,6 +18,7 @@ contract FlowStreamCreator {
             sender: msg.sender, // The sender will be able to pause the stream or change rate per second
             recipient: address(0xCAFE), // The recipient of the streamed tokens
             ratePerSecond: UD21x18.wrap(1_157_407_407_407_407), // Equivalent to 100e18 DAI per day
+            startTime: uint40(block.timestamp), // The stream starts now
             token: DAI, // The streaming token
             transferable: true // Whether the stream will be transferable or not
          });
@@ -42,9 +39,10 @@ contract FlowStreamCreator {
             sender: msg.sender, // The sender will be able to pause the stream or change rate per second
             recipient: address(0xCAFE), // The recipient of the streamed tokens
             ratePerSecond: UD21x18.wrap(1_157_407_407_407_407), // Equivalent to 100e18 DAI per day
+            startTime: uint40(block.timestamp), // The stream starts now
             token: DAI, // The streaming token
             transferable: true, // Whether the stream will be transferable or not
-            amount: depositAmount
-        });
+            amount: depositAmount // The amount to deposit into the stream
+         });
     }
 }
